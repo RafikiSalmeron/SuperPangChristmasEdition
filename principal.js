@@ -56,6 +56,7 @@
 	var disparos = [];
 	var jugador;
 	var intervalID;
+	var radio = 100;
 	window.onload = () =>{
 		
 		jugador = new Jugador("skyblue");
@@ -67,7 +68,7 @@
 		var x=Math.random() * (100 - 50) + 100;
 		
 		for(let  i=0;i<2;i++){
-			bolas.push(new Bola(100,"red",x,150,0));
+			bolas.push(new Bola(radio,"red",x,150,0));
 			x = document.getElementById("svg").getBoundingClientRect().width-300;
 		}
 		intervalID = setInterval(interval,30);
@@ -130,15 +131,37 @@
 					alert("Has perdido:  BOLA XY: " + bolas[i].x + " " + bolas[i].y + "    PLAYER XY: " + player.x + " " + player.y );
 				}
 				*/
-				if (((bolas[i].x - player.x) < 70 ) && ((bolas[i].x - player.x +20) > 5)){
-					if (((bolas[i].y - player.y -20) < 40 ) && ((bolas[i].y - player.y-20) > -35)){
+				if(bolas[i].r > (radio/2)){
+					if (((bolas[i].x - player.x ) < 190 ) && ((bolas[i].x - (player.x +40)) > -75)){
+						if (((bolas[i].y - player.y) < 100 ) && ((bolas[i].y - player.y) > -75)){	
+						//alert("PERDER: BOLA XY: " + bolas[i].x + " " + bolas[i].y + "    PLAYER XY: " + player.x + " " + player.y);
+						//location.reload();
+						clearInterval(intervalID);
+						perder();
+						}
+					}
+				}else if(bolas[i].r > radio/4){
+					console.log("radio med");
+						if (((bolas[i].x - player.x) < 160 ) && ((bolas[i].x - (player.x +40)) > -40)){
+							if (((bolas[i].y - player.y -20) < 40 ) && ((bolas[i].y - player.y-20) > -35)){	
+							alert("PERDER: BOLA XY: " + bolas[i].x + " " + bolas[i].y + "    PLAYER XY: " + player.x + " " + player.y);
+							//location.reload();
+							//clearInterval(intervalID);
+							//perder();
+							}
+						}	
+				}else{
+					console.log("radio peque");
+					if (((bolas[i].x - player.x) < 120 ) && ((bolas[i].x - (player.x +20)) > -5)){
+						if (((bolas[i].y - player.y -20) < 90 ) && ((bolas[i].y - player.y-20) > -35)){
 					
-					//alert("PERDER: BOLA XY: " + bolas[i].x + " " + bolas[i].y + "    PLAYER XY: " + player.x + " " + player.y);
-					//location.reload();
-					clearInterval(intervalID);
-					perder();
+						alert("PERDER: BOLA XY: " + bolas[i].x + " " + bolas[i].y + "    PLAYER XY: " + player.x + " " + player.y);
+						//location.reload();
+						}
 					}
 				}
+				
+				
 			}				
     }
 	
